@@ -13,7 +13,7 @@ const io = socketio(server);
 // Set static folder
 app.use(express.static(path.join(__dirname,'public')));
 
-const botName = 'ChatCord Bot';
+const botName = 'CodeChat Bot';
 
 // Run when client connects
 io.on('connection', socket => {
@@ -23,8 +23,8 @@ io.on('connection', socket => {
 
         socket.join(user.room);
 
-        //Welcome current user
-        socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+        //Welcome to current user
+        socket.emit('message', formatMessage(botName, 'Welcome to CodeChat!'));
 
         // Broadcast when user connects
         socket.broadcast
@@ -32,7 +32,7 @@ io.on('connection', socket => {
         .emit('message',formatMessage(botName, `${user.username} user has joined the chat`));
 
 
-        //Send users amd room info
+        //Send users and room info
         io.to(user.room).emit('roomUsers', {
             room: user.room,
             users: getRoomUsers(user.room)
